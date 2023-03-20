@@ -26,9 +26,9 @@
 
               <div class="sheet__content dough">
                 <label
-                  v-for="item in pizza.dough"
+                  v-for="(item, i) in pizza.dough"
                   :key="item.id"
-                  :class="`dough__input dough__input--${item.size}`"
+                  :class="`dough__input dough__input--${PIZZA_SIZES[i+1]}`"
                 >
                   <input type="radio" name="dought" :value="item.size" class="visually-hidden" checked>
                   <b>{{ item.name }}</b>
@@ -46,9 +46,9 @@
 
               <div class="sheet__content diameter">
                 <label
-                  v-for="size in pizza.sizes"
+                  v-for="(size, i) in pizza.sizes"
                   :key="size.id"
-                  :class="`diameter__input diameter__input--${size.diameter}`"
+                  :class="`diameter__input diameter__input--${PIZZA_DIAMETERS[i+1]}`"
                 >
                   <input type="radio" name="diameter" :value="size.diameter" class="visually-hidden">
                   <span>{{ size.name }}</span>
@@ -81,11 +81,11 @@
 
                   <ul class="ingredients__list">
                     <li
-                      v-for="ingredient in pizza.ingredients"
+                      v-for="(ingredient, i) in pizza.ingredients"
                       :key="ingredient.id"
                       class="ingredients__item"
                     >
-                      <span :class="`filling filling--${ingredient.class}`">{{ ingredient.name }}</span>
+                      <span :class="`filling filling--${PIZZA_INGREDIENTS[i+1]}`">{{ ingredient.name }}</span>
 
                       <div class="counter counter--orange ingredients__counter">
                         <button type="button" class="counter__button counter__button--minus" disabled>
@@ -138,6 +138,7 @@
 import misc from '@/static/misc.json'
 import pizza from '@/static/pizza.json'
 import user from '@/static/user.json'
+import {PIZZA_SIZES, PIZZA_DIAMETERS, PIZZA_INGREDIENTS} from '@/common/constants'
 
 export default {
   name: "Index.vue",
@@ -145,7 +146,10 @@ export default {
     return {
       misc,
       pizza,
-      user
+      user,
+      PIZZA_SIZES,
+      PIZZA_DIAMETERS,
+      PIZZA_INGREDIENTS
     }
   }
 }
